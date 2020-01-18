@@ -36,11 +36,13 @@ module.exports = {
         return res.json(devs);
     },
 
-    async update(){
-        
-    },
+    async destroy(req, res){
+        const { _id } = req.params;
 
-    async destroy(){
-        
+        let dev = await Dev.findOne({ _id });
+        if(!dev) return res.json({ message: 'Usuario não existe' });
+
+        const response = await Dev.deleteOne({ _id });
+        return res.json(response);
     }
 }
