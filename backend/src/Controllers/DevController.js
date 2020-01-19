@@ -4,12 +4,12 @@ const parse_string_as_array = require('../utils/parseStringAsArray');
 
 module.exports = {
     async store(req, res){
-        const { github, techs, latitude, longitude } = req.body;
+        const { github_username, techs, latitude, longitude } = req.body;
 
-        let dev = await Dev.findOne({ github });
+        let dev = await Dev.findOne({ github_username });
         if(dev) return res.json(dev);
 
-        const response = await axios.get(`https://api.github.com/users/${github}`);
+        const response = await axios.get(`https://api.github.com/users/${github_username}`);
         const { name = login, avatar_url, bio } = response.data;
         let techs_arr = parse_string_as_array(techs);
     
@@ -19,7 +19,7 @@ module.exports = {
         }
     
         dev = await Dev.create({
-            github,
+            github_username,
             name,
             avatar_url,
             bio,
