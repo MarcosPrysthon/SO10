@@ -1,9 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes');
-const cors = require('cors')
+const cors = require('cors');
+const http = require('http');
+const { setupWebSocket } = require('./websocket');
 
 const app = express();
+const server = http.Server(app);
+
+setupWebSocket(server);
 
 app.use(cors());
 app.use(express.json()); 
@@ -14,4 +19,4 @@ mongoose.connect('mongodb+srv://marcosprysthon:senhateste@cluster0-2kgca.mongodb
     useUnifiedTopology: true
 }, () => { console.log('Connected') });
 
-app.listen(3333);
+server.listen(3333);
