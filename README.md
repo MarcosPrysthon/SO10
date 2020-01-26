@@ -1,1 +1,2 @@
-# SO10
+# DevRadar
+Projeto para aprimoramento em React e JS
